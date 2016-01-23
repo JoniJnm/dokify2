@@ -13,6 +13,8 @@ use dokify2\langs\Lang;
 	<title><?= HLang::get(Lang::app_title) ?></title>
 
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/AlertifyJS/build/css/alertify.min.css">
+	<link rel="stylesheet" href="bower_components/AlertifyJS/build/css/themes/default.min.css">
 	<link rel="stylesheet" href="css/app.css">
 
 	<script data-main="require/main" src="bower_components/requirejs/require.js"></script>

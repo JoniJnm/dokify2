@@ -24,10 +24,23 @@ require.config({
 		i18n: '../bower_components/i18n/i18n',
 		jstemplate: '../bower_components/jstemplate/dist/jstemplate.min',
 		tplparse: '../bower_components/jstemplate/src/tplparse',
-		underscore: '../bower_components/underscore/underscore-min'
+		underscore: '../bower_components/underscore/underscore-min',
+		alertify: '../bower_components/AlertifyJS/build/alertify.min'
 	}
 });
 
-require(['ready'], function() {
+require(['alertify', 'i18n!nls/app'], function(alertify, lang) {
+	alertify.defaults.glossary = {
+		title: lang.app.title,
+		ok: lang.generic.confirm,
+		cancel: lang.generic.cancel
+	};
+	alertify.set('notifier','position', 'top-right');
 	
+	
+	define("lang", lang);
+	
+	require(['ready'], function() {
+		
+	});
 });

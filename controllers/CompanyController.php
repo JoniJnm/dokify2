@@ -15,6 +15,24 @@ class CompanyController extends \JNMFW\ControllerBase {
 		$this->server->sendData($item->id);
 	}
 	
+	public function update() {
+		$id = $this->request->get('id');
+		$name = $this->request->get('name');
+		
+		$item = CompanyTable::get($id);
+		
+		if ($item) {
+			$item->name = $name;
+			$item->update();
+			$this->server->sendOK();
+		}
+		else {
+			$this->server->sendNotFound();
+		}
+		
+		$this->server->sendData($item->id);
+	}
+	
 	public function destroy() {
 		$id = $this->request->get('id');
 		$item = CompanyTable::get($id);

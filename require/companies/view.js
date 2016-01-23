@@ -5,6 +5,8 @@ define(function(require, exports, module) {
 		$ = require('jquery'),
 		Event = require('Event'),
 		jstemplate = require('jstemplate'),
+		alertify = require('alertify'),
+		lang = require('lang'),
 		_ = require('underscore');
 	
 	var View = function() {
@@ -13,11 +15,13 @@ define(function(require, exports, module) {
 		this.$list = this.$('.list');
 		this.$deleteBtn = this.$('.delete');
 		this.$viewBtn = this.$('.view');
+		this.$modifyBtn = this.$('.modify');
 		this.$addForm = this.$('.add');
 		this.$name = this.$('.name');
 		
 		this.onDelete = new Event();
 		this.onView = new Event();
+		this.onModify = new Event();
 		this.onAdd = new Event();
 		
 		this.tplOption = jstemplate.parse('<option value="{value}">{text}</option>');
@@ -34,17 +38,25 @@ define(function(require, exports, module) {
 			self.onView.trigger(id);
 		});
 		
-		this.$addForm.submit(function() {			
+		this.$modifyBtn.click(function() {
+			var id = self.getSelected();
+			alertify.prompt(lang.generic.company_name, '', function(evt, value) {
+				self.onModify.trigger(id, value);
+			});
+		});
+		
+		this.$addForm.submit(function(event) {
+			event.preventDefault();
+			
 			var name = self.$name.val();
 			self.onAdd.trigger(name);
-			
-			return false; //prevent submit form
 		});
 		
 		this.$list.change(function() {
 			var hide = !self.getSelected();
 			self.$viewBtn.toggleClass('hidden', hide);
 			self.$deleteBtn.toggleClass('hidden', hide);
+			self.$modifyBtn.toggleClass('hidden', hide);
 		});
 	};
 	
@@ -52,18 +64,21 @@ define(function(require, exports, module) {
 		$: function(selector) {
 			return this.$root.find(selector);
 		},
-		add: function(id, name, select) {
+		add: function(id, name, selected) {
 			var html = this.tplOption.rende({
 				value: id,
 				text: name
 			});
 			this.$list.append(html);
-			if (select) {
+			if (selected) {
 				this.setSelected(id);
 			}
 		},
 		remove: function(id) {
 			this.$list.find('option[value="'+id+'"]').remove();
+		},
+		modify: function(id, name) {
+			this.$list.find('option[value="'+id+'"]').text(name);
 		},
 		refreshList: function(list) {
 			var self = this;
@@ -77,7 +92,7 @@ define(function(require, exports, module) {
 		},
 		clearList: function() {
 			this.$list.html('');
-			this.add(0, '');
+			this.add('', '');
 		},
 		clearName: function() {
 			this.$name.val('');

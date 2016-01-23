@@ -3,6 +3,7 @@ define(function(require, exports, module) {
 	
 	var
 		$ = require('jquery'),
+		Event = require('event'),
 		View = require('companies/view');
 	
 	var Model = function() {
@@ -10,6 +11,12 @@ define(function(require, exports, module) {
 		
 		this.view.onAdd.attach(this.onAdd, this);
 		this.view.onDelete.attach(this.destroy, this);
+		this.view.onModify.attach(this.modify, this);
+		
+		this.onCreate = new Event();
+		this.onDestroy = new Event();
+		this.onRefresh = new Event();
+		this.onModify = new Event();
 	};
 	
 	Model.prototype = {
@@ -25,6 +32,7 @@ define(function(require, exports, module) {
 				name: name
 			}).done(function(id) {
 				self.view.add(id, name, true);
+				self.onCreate.trigger(id, name);
 			});
 		},
 		destroy: function(id) {
@@ -33,12 +41,24 @@ define(function(require, exports, module) {
 				id: id
 			}).done(function() {
 				self.view.remove(id);
+				self.onDestroy.trigger(id);
+			});
+		},
+		modify: function(id, name) {
+			var self = this;
+			return $.post('rest/company/update', {
+				id: id,
+				name: name
+			}).done(function() {
+				self.view.modify(id, name);
+				self.onModify.trigger(id, name);
 			});
 		},
 		fetchAll: function() {
 			var self = this;
 			$.get('rest/companies/get').done(function(list) {
 				self.view.refreshList(list);
+				self.onRefresh.trigger(list);
 			});
 		}
 	};
