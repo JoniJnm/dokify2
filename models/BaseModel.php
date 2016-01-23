@@ -1,6 +1,6 @@
 <?php
 
-namespace langs\models;
+namespace dokify2\models;
 
 abstract class BaseModel extends \JNMFW\ModelBase {
 	protected function getObjByID($id, $name) {
@@ -8,6 +8,10 @@ abstract class BaseModel extends \JNMFW\ModelBase {
 	}
 	
 	protected function getObjsByIDs($ids, $name) {
+		return parent::getMultiByPrimaryKey($ids, "dokify2\\tables\\".$name."Table", "dokify2\\objs\\".$name);
+	}
+	
+	protected function getObjs($name) {
 		return parent::getMultiByPrimaryKey($ids, "dokify2\\tables\\".$name."Table", "dokify2\\objs\\".$name);
 	}
 }

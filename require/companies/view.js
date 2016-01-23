@@ -4,15 +4,15 @@ define(function(require, exports, module) {
 	var
 		$ = require('jquery'),
 		Event = require('Event'),
-		jstemplate = require('jstemplate'),
 		alertify = require('alertify'),
 		lang = require('lang'),
-		_ = require('underscore');
+		_ = require('underscore'),
+		Select = require('select');
 	
 	var View = function() {
 		this.$root = $('#companies');
 		
-		this.$list = this.$('.list');
+		this.select = new Select(this.$('.list'));
 		this.$deleteBtn = this.$('.delete');
 		this.$viewBtn = this.$('.view');
 		this.$modifyBtn = this.$('.modify');
@@ -23,9 +23,7 @@ define(function(require, exports, module) {
 		this.onView = new Event();
 		this.onModify = new Event();
 		this.onAdd = new Event();
-		
-		this.tplOption = jstemplate.parse('<option value="{value}">{text}</option>');
-		
+				
 		var self = this;
 		
 		this.$deleteBtn.click(function() {
@@ -52,7 +50,7 @@ define(function(require, exports, module) {
 			self.onAdd.trigger(name);
 		});
 		
-		this.$list.change(function() {
+		this.select.onChange(function() {
 			var hide = !self.getSelected();
 			self.$viewBtn.toggleClass('hidden', hide);
 			self.$deleteBtn.toggleClass('hidden', hide);
@@ -65,44 +63,28 @@ define(function(require, exports, module) {
 			return this.$root.find(selector);
 		},
 		add: function(id, name, selected) {
-			var html = this.tplOption.rende({
-				value: id,
-				text: name
-			});
-			this.$list.append(html);
-			if (selected) {
-				this.setSelected(id);
-			}
+			this.select.add(id, name, selected);
 		},
 		remove: function(id) {
-			this.$list.find('option[value="'+id+'"]').remove();
+			this.select.remove(id);
 		},
 		modify: function(id, name) {
-			this.$list.find('option[value="'+id+'"]').text(name);
+			this.select.modify(id, name);
 		},
 		refreshList: function(list) {
-			var self = this;
-			var sorted = _.sortBy(list, function(option) {
-				return option.name;
-			});
-			this.clearList();
-			_.each(sorted, function(option) {
-				self.add(option.id, option.name);
-			});
+			this.select.refresh(list);
 		},
 		clearList: function() {
-			this.$list.html('');
-			this.add('', '');
+			this.select.clear();
 		},
 		clearName: function() {
 			this.$name.val('');
 		},
 		getSelected: function() {
-			var id = this.$list.val();
-			return id ? parseInt(id) : null;
+			return this.select.getSelected();
 		},
 		setSelected: function(id) {
-			this.$list.val(id).change();
+			this.select.setSelected(id);
 		}
 	};
 	

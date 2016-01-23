@@ -18,4 +18,11 @@ class BundleModel extends BaseModel {
 	public function getByIDs($ids) {
 		return parent::getObjsByIDs($ids, 'Company');
 	}
+	
+	/**
+	 * @return Company[]
+	 */
+	public function getAll() {
+		return parent::getObjs('Company');
+	}
 }
