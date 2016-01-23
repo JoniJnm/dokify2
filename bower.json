@@ -1,0 +1,30 @@
+{
+  "name": "dokify2",
+  "description": "Proyecto para la prueba 2 de dokify",
+  "main": "index.php",
+  "authors": [
+    "JoniJnm"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/JoniJnm/dokify2",
+  "moduleType": [
+    "amd"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.1.4",
+    "jstemplate": "~1.3.2",
+    "underscore": "~1.8.3",
+    "requirejs": "~2.1.22",
+    "text": "requirejs-text#~2.0.14",
+    "i18n": "requirejs-i18n#~2.0.6"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "dokify2",
+  "version": "1.0.0",
+  "description": "Proyecto para la prueba 2 de dokify",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://JoniJnm@github.com/JoniJnm/dokify2.git"
+  },
+  "author": "JoniJnm",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/JoniJnm/dokify2/issues"
+  },
+  "homepage": "https://github.com/JoniJnm/dokify2#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-less": "^3.0.5",
+    "gulp-rename": "^1.2.2"
+  }
+}
