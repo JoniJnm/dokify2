@@ -1,0 +1,1 @@
+define({"root":{"app":{"title":"Companies"},"generic":{"companies":"Compa\u00f1\u00edas","delete":"Borrar","view":"Ver","company_name":"Nombre de la compa\u00f1\u00eda","add":"A\u00f1adir"}}})

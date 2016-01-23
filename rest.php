@@ -1,6 +1,6 @@
 <?php
 
-namespace langs;
+namespace dokify2;
 
 use JNMFW\helpers\HServer;
 use JNMFW\helpers\HTimer;
@@ -37,7 +37,7 @@ $task = $request->getCmd('task');
 
 HLog::verbose('Request init '.$controllerName.'::'.$task);
 
-$controllerName = '\langs\controllers\\'.  \ucfirst($controllerName)."Controller";
+$controllerName = '\dokify2\controllers\\'.  \ucfirst($controllerName)."Controller";
 if (!\class_exists($controllerName)) {
 	HServer::sendNotFound("Controller $controllerName not found");
 }

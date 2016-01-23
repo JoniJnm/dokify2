@@ -27,3 +27,7 @@ require.config({
 		underscore: '../bower_components/underscore/underscore-min'
 	}
 });
+
+require(['ready'], function() {
+	
+});
