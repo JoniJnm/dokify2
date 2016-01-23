@@ -14,7 +14,8 @@ define({
             "cancel": "Cancelar",
             "client": "Cliente",
             "provider": "Proveedor",
-            "modify": "Modificar"
+            "modify": "Modificar",
+            "list": "Listado"
         },
         "alert": {
             "diferent_companies": "Las compa\u00f1\u00edas deben ser diferentes"

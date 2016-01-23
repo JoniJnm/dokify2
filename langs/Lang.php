@@ -15,5 +15,6 @@ abstract class Lang {
 	const generic_client = 'generic_client';
 	const generic_provider = 'generic_provider';
 	const generic_modify = 'generic_modify';
+	const generic_list = 'generic_list';
 	const alert_diferent_companies = 'alert_diferent_companies';
 }
