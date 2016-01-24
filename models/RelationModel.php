@@ -22,27 +22,6 @@ class RelationModel extends BaseModel {
 		return parent::getInstance();
 	}
 	
-	/**
-	 * @return Relation
-	 */
-	public function getByID($id) {
-		return parent::getObjByID($id, 'Relation');
-	}
-	
-	/**
-	 * @return Relation[]
-	 */
-	public function getByIDs($ids) {
-		return parent::getObjsByIDs($ids, 'Relation');
-	}
-	
-	/**
-	 * @return Relation[]
-	 */
-	public function getAll() {
-		return parent::getObjs('Relation');
-	}
-	
 	public function exists($id_client, $id_provider) {
 		return !!$this->db->getQueryBuilderSelect('relations')
 			->columns('id')
@@ -90,26 +69,8 @@ class RelationModel extends BaseModel {
 		
 		//get agreements
 		
-		$rows = $this->db->getQueryBuilderSelect('relations', 'r')
-			->columns('client')
-			->columns('provider')
-			->innerJoin('agreement_relations', 'ar', 'ar.id_relation', 'r.id')
-			->setGlueOr()
-			->where('r.client', $id)
-			->where('r.provider', $id)
-			->loadObjectList();
-		
-		$ids = array();
-		foreach ($rows as $row) {
-			if ($row->client != $id && !in_array($row->client, $ids)) {
-				$ids[] = $row->client;
-			}
-			if ($row->provider != $id && !in_array($row->provider, $ids)) {
-				$ids[] = $row->provider;
-			}
-		}
-		
-		$companies = $this->companyModel->getByIDs($ids);
+		$company = $this->companyModel->getByID($id);
+		$companies = $company->getCompaniesInAgreement();
 		foreach ($companies as $company) {
 			$item = $company->getItem();
 			$data[] = array(
@@ -119,16 +80,27 @@ class RelationModel extends BaseModel {
 			);
 		}
 		
-		$companies = $this->companyModel->getByIDs($ids);
-		foreach ($companies as $company) {
-			$item = $company->getItem();
-			$data[] = array(
-				'id' => $item->id,
-				'name' => $item->name,
-				'relation' => HLang::get(Lang::generic_client)
-			);
-		}
-		
 		return $data;
+	}
+	
+	/**
+	 * @return Relation
+	 */
+	public function getByID($id) {
+		return parent::getObjByID($id, 'Relation');
+	}
+	
+	/**
+	 * @return Relation[]
+	 */
+	public function getByIDs($ids) {
+		return parent::getObjsByIDs($ids, 'Relation');
+	}
+	
+	/**
+	 * @return Relation[]
+	 */
+	public function getAll() {
+		return parent::getObjs('Relation');
 	}
 }

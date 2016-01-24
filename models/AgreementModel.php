@@ -12,6 +12,16 @@ class AgreementModel extends BaseModel {
 		return parent::getInstance();
 	}
 	
+	public function getIDsByCompanyID($id_company) {
+		return $this->db->getQueryBuilderSelect('relations', 'r')
+			->columns('distinct ar.id_agreement')
+			->innerJoin('agreement_relations', 'ar', 'ar.id_relation', 'r.id')
+			->setGlueOr()
+			->where('r.client', $id_company)
+			->where('r.provider', $id_company)
+			->loadValueArray();
+	}
+	
 	/**
 	 * @return Agreement
 	 */
