@@ -4,7 +4,21 @@ namespace dokify2\models;
 
 use dokify2\objs\Company;
 
-class BundleModel extends BaseModel {
+class CompanyModel extends BaseModel {
+	/**
+	 * @return CompanyModel
+	 */
+	public static function getInstance() {
+		return parent::getInstance();
+	}
+	
+	public function exists($name) {
+		return !!$this->db->getQueryBuilderSelect('companies')
+			->columns('id')
+			->where('name', $name)
+			->loadValue();
+	}
+	
 	/**
 	 * @return Company
 	 */

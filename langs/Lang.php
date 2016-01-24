@@ -17,4 +17,6 @@ abstract class Lang {
 	const generic_modify = 'generic_modify';
 	const generic_list = 'generic_list';
 	const alert_diferent_companies = 'alert_diferent_companies';
+	const alert_relation_exists = 'alert_relation_exists';
+	const alert_company_exists = 'alert_company_exists';
 }

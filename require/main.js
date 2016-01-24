@@ -29,7 +29,7 @@ require.config({
 	}
 });
 
-require(['alertify', 'i18n!nls/app'], function(alertify, lang) {
+require(['alertify', 'i18n!nls/app', 'jquery'], function(alertify, lang, $) {
 	alertify.defaults.glossary = {
 		title: lang.app.title,
 		ok: lang.generic.confirm,
@@ -37,8 +37,16 @@ require(['alertify', 'i18n!nls/app'], function(alertify, lang) {
 	};
 	alertify.set('notifier','position', 'top-right');
 	
-	
 	define("lang", lang);
+	
+	$.ajaxSetup({
+		error: function(jqXHR) {
+			if (jqXHR.responseJSON && jqXHR.responseJSON.msg) {
+				var msg = jqXHR.responseJSON.msg;
+				alertify.error(msg);
+			}
+		}
+	});
 	
 	require(['ready'], function() {
 		

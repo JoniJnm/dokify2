@@ -12,6 +12,6 @@ abstract class BaseModel extends \JNMFW\ModelBase {
 	}
 	
 	protected function getObjs($name) {
-		return parent::getMultiByPrimaryKey($ids, "dokify2\\tables\\".$name."Table", "dokify2\\objs\\".$name);
+		return parent::getMulti("dokify2\\tables\\".$name."Table", "dokify2\\objs\\".$name);
 	}
 }

@@ -18,7 +18,9 @@ define({
             "list": "Listado"
         },
         "alert": {
-            "diferent_companies": "Las compa\u00f1\u00edas deben ser diferentes"
+            "diferent_companies": "Las compa\u00f1\u00edas deben ser diferentes",
+            "relation_exists": "La relaci\u00f3n ya existe",
+            "company_exists": "Ya existe una compa\u00f1\u00eda con el mismo nombre"
         }
     }
 });

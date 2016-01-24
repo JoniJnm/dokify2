@@ -14,6 +14,7 @@ require(__DIR__.'/includes/init.php');
 
 		<div class="container" role="main">
 			<?php require('tpls/companies.php'); ?>
+			<?php require('tpls/relations.php'); ?>
 		</div>
 
 		<?php require('tpls/footer.php') ?>

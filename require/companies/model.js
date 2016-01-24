@@ -30,9 +30,9 @@ define(function(require, exports, module) {
 			var self = this;
 			return $.post('rest/company/add', {
 				name: name
-			}).done(function(id) {
-				self.view.add(id, name, true);
-				self.onCreate.trigger(id, name);
+			}).done(function(data) {
+				self.view.add(data.id, name, true);
+				self.onCreate.trigger(data.id, name);
 			});
 		},
 		destroy: function(id) {
@@ -56,7 +56,7 @@ define(function(require, exports, module) {
 		},
 		fetchAll: function() {
 			var self = this;
-			$.get('rest/companies/get').done(function(list) {
+			$.get('rest/companies/get', function(list) {
 				self.view.refreshList(list);
 				self.onRefresh.trigger(list);
 			});

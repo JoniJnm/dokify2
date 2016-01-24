@@ -27,8 +27,9 @@ define(function(require, exports, module) {
 			this.$select.change(func);
 			return this;
 		},
-		refresh: function(list) {
+		refresh: function(list, keepSelected) {
 			var self = this;
+			var id = keepSelected ? this.getSelected() || '' : '';
 			var sorted = _.sortBy(list, function(option) {
 				return option.name;
 			});
@@ -36,6 +37,7 @@ define(function(require, exports, module) {
 			_.each(sorted, function(option) {
 				self.add(option.id, option.name);
 			});
+			this.setSelected(id);
 		},
 		remove: function(id) {
 			this.$select.find('option[value="'+id+'"]').remove();
@@ -53,6 +55,12 @@ define(function(require, exports, module) {
 		getSelected: function() {
 			var id = this.$select.val();
 			return id ? parseInt(id) : null;
+		},
+		getSelectedName: function() {
+			return this.$select.find('option:selected').text();
+		},
+		unselect: function() {
+			return this.setSelected('');
 		},
 		setSelected: function(id) {
 			this.$select.val(id).change();
