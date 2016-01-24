@@ -26,6 +26,8 @@
     "requirejs": "~2.1.22",
     "text": "requirejs-text#~2.0.14",
     "i18n": "requirejs-i18n#~2.0.6",
-    "AlertifyJS": "https://github.com/MohammadYounes/AlertifyJS.git#1.6.1"
+    "AlertifyJS": "https://github.com/MohammadYounes/AlertifyJS.git#1.6.1",
+    "datatables.net": "~1.10.10",
+    "datatables.net-bs": "~1.10.10"
   }
 }

@@ -3,8 +3,18 @@
 namespace dokify2\models;
 
 use dokify2\objs\Relation;
+use dokify2\models\CompanyModel;
+use JNMFW\helpers\HLang;
+use dokify2\langs\Lang;
 
 class RelationModel extends BaseModel {
+	private $companyModel;
+	
+	public function __construct() {
+		parent::__construct();
+		$this->companyModel = CompanyModel::getInstance();
+	}
+	
 	/**
 	 * @return RelationModel
 	 */
@@ -39,5 +49,45 @@ class RelationModel extends BaseModel {
 			->where('client', $id_client)
 			->where('provider', $id_provider)
 			->loadValue();
+	}
+	
+	public function getForCompanyID($id) {
+		$data = array();
+		
+		//get proviers
+		
+		$ids = $this->db->getQueryBuilderSelect('relations')
+			->columns('provider')
+			->where('client', $id)
+			->loadValueArray();
+		
+		$companies = $this->companyModel->getByIDs($ids);
+		foreach ($companies as $company) {
+			$item = $company->getItem();
+			$data[] = array(
+				'id' => $item->id,
+				'name' => $item->name,
+				'relation' => HLang::get(Lang::generic_provider)
+			);
+		}
+		
+		//get clients
+		
+		$ids = $this->db->getQueryBuilderSelect('relations')
+			->columns('client')
+			->where('provider', $id)
+			->loadValueArray();
+		
+		$companies = $this->companyModel->getByIDs($ids);
+		foreach ($companies as $company) {
+			$item = $company->getItem();
+			$data[] = array(
+				'id' => $item->id,
+				'name' => $item->name,
+				'relation' => HLang::get(Lang::generic_client)
+			);
+		}
+		
+		return $data;
 	}
 }

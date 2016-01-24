@@ -6,7 +6,6 @@ abstract class Lang {
 	const app_title = 'app_title';
 	const generic_companies = 'generic_companies';
 	const generic_delete = 'generic_delete';
-	const generic_view = 'generic_view';
 	const generic_company_name = 'generic_company_name';
 	const generic_add = 'generic_add';
 	const generic_relations = 'generic_relations';
@@ -16,6 +15,7 @@ abstract class Lang {
 	const generic_provider = 'generic_provider';
 	const generic_modify = 'generic_modify';
 	const generic_list = 'generic_list';
+	const generic_relation = 'generic_relation';
 	const alert_diferent_companies = 'alert_diferent_companies';
 	const alert_relation_exists = 'alert_relation_exists';
 	const alert_company_exists = 'alert_company_exists';

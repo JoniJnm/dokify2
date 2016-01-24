@@ -4,7 +4,8 @@ define(function(require, exports, module) {
 	var
 		$ = require('jquery'),
 		Event = require('event'),
-		View = require('companies/view');
+		View = require('companies/view'),
+		lang = require('lang');
 	
 	var Model = function() {
 		this.view = new View();
@@ -12,6 +13,7 @@ define(function(require, exports, module) {
 		this.view.onAdd.attach(this.onAdd, this);
 		this.view.onDelete.attach(this.destroy, this);
 		this.view.onModify.attach(this.modify, this);
+		this.view.onShowRelations.attach(this.showRelations, this);
 		
 		this.onCreate = new Event();
 		this.onDestroy = new Event();
@@ -49,9 +51,25 @@ define(function(require, exports, module) {
 			return $.post('rest/company/update', {
 				id: id,
 				name: name
-			}).done(function() {
+			}, function() {
 				self.view.modify(id, name);
 				self.onModify.trigger(id, name);
+			});
+		},
+		showRelations: function(id) {
+			var self = this;
+			$.get('rest/relations/company', {
+				id: id
+			}, function(rows) {
+				var data = {
+					columns: {
+						//id: 'ID',
+						name: lang.generic.company_name,
+						relation: lang.generic.relation
+					},
+					rows: rows
+				};
+				self.view.showRelations(data);
 			});
 		},
 		fetchAll: function() {

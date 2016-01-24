@@ -7,7 +7,10 @@ define(function(require, exports, module) {
 		alertify = require('alertify'),
 		lang = require('lang'),
 		_ = require('underscore'),
-		Select = require('select');
+		Select = require('select'),
+		tplRelations = require('tplparse!tpls/relations');
+		
+	require('datatable');
 	
 	var View = function() {
 		this.$root = $('#companies');
@@ -18,9 +21,10 @@ define(function(require, exports, module) {
 		this.$modifyBtn = this.$('.modify');
 		this.$addForm = this.$('.add');
 		this.$name = this.$('.name');
+		this.$relations = this.$('.relations');
 		
 		this.onDelete = new Event();
-		this.onView = new Event();
+		this.onShowRelations = new Event();
 		this.onModify = new Event();
 		this.onAdd = new Event();
 				
@@ -33,7 +37,7 @@ define(function(require, exports, module) {
 		
 		this.$viewBtn.click(function() {
 			var id = self.getSelected();
-			self.onView.trigger(id);
+			self.onShowRelations.trigger(id);
 		});
 		
 		this.$modifyBtn.click(function() {
@@ -51,6 +55,7 @@ define(function(require, exports, module) {
 		});
 		
 		this.select.onChange(function() {
+			self.clearRelations();
 			var hide = !self.getSelected();
 			self.$viewBtn.toggleClass('hidden', hide);
 			self.$deleteBtn.toggleClass('hidden', hide);
@@ -85,6 +90,16 @@ define(function(require, exports, module) {
 		},
 		setSelected: function(id) {
 			this.select.setSelected(id);
+		},
+		showRelations: function(data) {
+			var html = tplRelations.rende(data);
+			this.$relations.html(html);
+			this.$relations.find('table').dataTable({
+				language: lang.datatable
+			});
+		},
+		clearRelations: function() {
+			this.$relations.html('');
 		}
 	};
 	

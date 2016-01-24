@@ -20,7 +20,7 @@ use dokify2\langs\Lang;
 		</div>
 
 		<div class="col-md-3">
-			<button type="button" class="view btn btn-primary hidden"><?= HLang::get(Lang::generic_view) ?></button>
+			<button type="button" class="view btn btn-primary hidden"><?= HLang::get(Lang::generic_relations) ?></button>
 			<button type="button" class="modify btn btn-primary hidden"><?= HLang::get(Lang::generic_modify) ?></button>
 			<button type="button" class="delete btn btn-danger hidden"><?= HLang::get(Lang::generic_delete) ?></button>
 		</div>
@@ -33,5 +33,10 @@ use dokify2\langs\Lang;
 				<button type="submit" class="btn btn-success"><?= HLang::get(Lang::generic_add) ?></button>
 			</div>
 		</form>
+	</div>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10 relations"></div>
+		<div class="col-md-1"></div>
 	</div>
 </div>

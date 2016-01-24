@@ -15,6 +15,7 @@ use dokify2\langs\Lang;
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="bower_components/AlertifyJS/build/css/alertify.min.css">
 	<link rel="stylesheet" href="bower_components/AlertifyJS/build/css/themes/default.min.css">
+	<link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 	<link rel="stylesheet" href="css/app.css">
 
 	<script data-main="require/main" src="bower_components/requirejs/require.js"></script>

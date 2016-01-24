@@ -15,7 +15,17 @@ require.config({
 			deps: [
 				'jquery'
 			]
-		}
+		},
+		'datatables.net': {
+			deps: [
+				'jquery'
+			]
+		},
+		datatable: {
+			deps: [
+				'datatables.net'
+			]
+		},
 	},
 	paths: {
 		bootstrap: '../bower_components/bootstrap/dist/js/bootstrap.min',
@@ -25,7 +35,9 @@ require.config({
 		jstemplate: '../bower_components/jstemplate/dist/jstemplate.min',
 		tplparse: '../bower_components/jstemplate/src/tplparse',
 		underscore: '../bower_components/underscore/underscore-min',
-		alertify: '../bower_components/AlertifyJS/build/alertify.min'
+		alertify: '../bower_components/AlertifyJS/build/alertify.min',
+		'datatables.net': '../bower_components/datatables.net/js/jquery.dataTables.min',
+		datatable: '../bower_components/datatables.net-bs/js/dataTables.bootstrap.min'
 	}
 });
 
@@ -37,8 +49,6 @@ require(['alertify', 'i18n!nls/app', 'jquery'], function(alertify, lang, $) {
 	};
 	alertify.set('notifier','position', 'top-right');
 	
-	define("lang", lang);
-	
 	$.ajaxSetup({
 		error: function(jqXHR) {
 			if (jqXHR.responseJSON && jqXHR.responseJSON.msg) {
@@ -48,7 +58,12 @@ require(['alertify', 'i18n!nls/app', 'jquery'], function(alertify, lang, $) {
 		}
 	});
 	
-	require(['ready'], function() {
+	$.getJSON('vendor/datatable_langs/es.json', function(data) {
+		lang.datatable = data;
+		define("lang", lang);
 		
+		require(['ready'], function() {
+
+		});
 	});
 });
