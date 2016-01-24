@@ -4,7 +4,8 @@ define(function(require, exports, module) {
 	var
 		$ = require('jquery'),
 		View = require('companies/view'),
-		lang = require('lang');
+		lang = require('lang'),
+		Event = require('Event');
 	
 	var Model = function() {
 		this.view = new View();
@@ -13,6 +14,10 @@ define(function(require, exports, module) {
 		this.view.onDelete.attach(this.destroy, this);
 		this.view.onModify.attach(this.modify, this);
 		this.view.onShowRelations.attach(this.showRelations, this);
+		
+		this.onCreate = new Event();
+		this.onDestroy = new Event();
+		this.onModify = new Event();
 	};
 	
 	Model.prototype = {
@@ -28,6 +33,7 @@ define(function(require, exports, module) {
 				name: name
 			}).done(function(data) {
 				self.view.add(data.id, name, true);
+				self.onCreate.trigger(data.id, name);
 			});
 		},
 		destroy: function(id) {
@@ -36,6 +42,7 @@ define(function(require, exports, module) {
 				id: id
 			}).done(function() {
 				self.view.remove(id);
+				self.onDestroy.trigger(id);
 			});
 		},
 		modify: function(id, name) {
@@ -45,6 +52,7 @@ define(function(require, exports, module) {
 				name: name
 			}, function() {
 				self.view.modify(id, name);
+				self.onModify.trigger(id, name);
 			});
 		},
 		showRelations: function(id) {

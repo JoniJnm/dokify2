@@ -39,6 +39,10 @@ define(function(require, exports, module) {
 		},
 		getSelect: function() {
 			return this.relation;
+		},
+		clearForm: function() {
+			this.$name.val('');
+			this.relation.unselect();
 		}
 	};
 	

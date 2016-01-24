@@ -15,4 +15,13 @@ class Company extends \JNMFW\ObjBase {
 	public function toJSON() {
 		return get_object_vars($this->getItem());
 	}
+	
+	public function hasRelations() {
+		return !!$this->db->getQueryBuilderSelect('relations')
+			->setGlueOr()
+			->columns('client', $this->getItem()->id)
+			->columns('provider', $this->getItem()->id)
+			->limit(1)
+			->loadValue();
+	}
 }

@@ -16,6 +16,12 @@ define(function(require, exports, module) {
 		this.onCreate = new Event();
 		this.onDestroy = new Event();
 		
+		var self = this;
+		
+		this.companies.onModify.attach(function() {
+			self.fetchAll();
+		});
+		
 		this.view.onAdd.attach(this.onAdd, this);
 		this.view.onDelete.attach(this.destroy, this);
 	};
@@ -44,7 +50,7 @@ define(function(require, exports, module) {
 				id: id
 			}, function() {
 				self.view.remove(id);
-				self.onCreate.trigger(id);
+				self.onDestroy.trigger(id);
 			});
 		},
 		fetchAll: function(keepSelected) {

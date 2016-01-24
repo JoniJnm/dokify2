@@ -50,4 +50,12 @@ class Relation extends \JNMFW\ObjBase {
 		
 		return $client->getItem()->name.' > '.$provider->getItem()->name;
 	}
+	
+	public function inAgrement() {
+		return !!$this->db->getQueryBuilderSelect('agreement_relations')
+			->columns('id_agreement')
+			->where('id_relation', $this->getItem()->id)
+			->limit(1)
+			->loadValue();
+	}
 }

@@ -57,10 +57,13 @@ class CompanyController extends \JNMFW\ControllerBase {
 	
 	public function destroy() {
 		$id = $this->request->get('id');
-		$item = CompanyTable::get($id);
+		$company = $this->companyModel->getByID($id);
 		
-		if ($item) {
-			$item->delete();
+		if ($company) {
+			if ($company->hasRelations()) {
+				$this->server->sendConflict(HLang::get(Lang::alert_cant_delete_company__in_relation));
+			}
+			$company->getItem()->delete();
 			$this->server->sendOK();
 		}
 		else {

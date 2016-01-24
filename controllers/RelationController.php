@@ -39,10 +39,13 @@ class RelationController extends \JNMFW\ControllerBase {
 	
 	public function destroy() {
 		$id = $this->request->get('id');
-		$item = RelationTable::get($id);
+		$relation = $this->relationModel->getByID($id);
 		
-		if ($item) {
-			$item->delete();
+		if ($relation) {
+			if ($relation->inAgrement()) {
+				$this->server->sendConflict(HLang::get(Lang::alert_cant_delete_relation__in_agreement));
+			}
+			$relation->getItem()->delete();
 			$this->server->sendOK();
 		}
 		else {

@@ -24,4 +24,6 @@ abstract class Lang {
 	const alert_diferent_companies = 'alert_diferent_companies';
 	const alert_relation_exists = 'alert_relation_exists';
 	const alert_company_exists = 'alert_company_exists';
+	const alert_cant_delete_company__in_relation = 'alert_cant_delete_company__in_relation';
+	const alert_cant_delete_relation__in_agreement = 'alert_cant_delete_relation__in_agreement';
 }

@@ -3,24 +3,24 @@ define(function(require, exports, module) {
 
 	var
 		$ = require('jquery'),
-		CompanyModel = require('companies/model'),
+		CompaniesModel = require('companies/model'),
 		RelationsModel = require('relations/model'),
 		AgreementCreateModel = require('agreement-create/model'),
 		AgreementModifyModel = require('agreement-modify/model');
 		
 	$(document).ready(function() {
-		var company = new CompanyModel();
-		var relations = new RelationsModel(company);
-		var agreementCreate = new AgreementCreateModel(relations);
-		var agreementModify = new AgreementModifyModel(relations, agreementCreate);
+		var companies = new CompaniesModel();
+		var relations = new RelationsModel(companies);
+		var agreementCreate = new AgreementCreateModel(companies, relations);
+		var agreementModify = new AgreementModifyModel(companies, relations, agreementCreate);
 		
-		company.fetchAll();
+		companies.fetchAll();
 		relations.fetchAll();
 		agreementModify.fetchAll();
 		
 		
 		//debug
-		window.company = company;
+		window.companies = companies;
 		window.relations = relations;
 		window.agreementCreate = agreementCreate;
 		window.agreementModify = agreementModify;

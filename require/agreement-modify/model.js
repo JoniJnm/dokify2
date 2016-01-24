@@ -6,8 +6,9 @@ define(function(require, exports, module) {
 		View = require('agreement-modify/view'),
 		Event = require('Event');
 	
-	var Model = function(relations, agreementCreate) {
+	var Model = function(companies, relations, agreementCreate) {
 		this.view = new View();
+		this.companies = companies;
 		this.relations = relations;
 		this.agreementCreate = agreementCreate;
 		
@@ -15,6 +16,9 @@ define(function(require, exports, module) {
 		var self = this;
 		this.agreementCreate.onCreate.attach(function(id, name) {
 			self.view.add(id, name, true);
+		});
+		this.companies.onModify.attach(function() {
+			self.fetchAll();
 		});
 		
 		this.view.onChange.attach(this.onChange, this);

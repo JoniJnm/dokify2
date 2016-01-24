@@ -25,7 +25,9 @@ define({
         "alert": {
             "diferent_companies": "Las compa\u00f1\u00edas deben ser diferentes",
             "relation_exists": "La relaci\u00f3n ya existe",
-            "company_exists": "Ya existe una compa\u00f1\u00eda con el mismo nombre"
+            "company_exists": "Ya existe una compa\u00f1\u00eda con el mismo nombre",
+            "cant_delete_company__in_relation": "No se puede eliminar la compa\u00f1\u00eda, est\u00e1 en una o m\u00e1s relaciones",
+            "cant_delete_relation__in_agreement": "No se puede eliminar la relaci\u00f3n, est\u00e1 en uno o m\u00e1s acuerdos"
         }
     }
 });
