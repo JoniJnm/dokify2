@@ -1,7 +1,7 @@
 define({
     "root": {
         "app": {
-            "title": "Companies"
+            "title": "Dokify test 2"
         },
         "generic": {
             "companies": "Compa\u00f1\u00edas",

@@ -3,8 +3,8 @@
 namespace dokify2\langs;
 
 abstract class LangES {
-	const _VERSION = 1453651954.0883;
-	const app_title = 'Companies';
+	const _VERSION = 1453655101.3025;
+	const app_title = 'Dokify test 2';
 	const generic_companies = 'Compañías';
 	const generic_delete = 'Borrar';
 	const generic_company_name = 'Nombre de la compañía';

@@ -18,9 +18,10 @@ class Company extends \JNMFW\ObjBase {
 	
 	public function hasRelations() {
 		return !!$this->db->getQueryBuilderSelect('relations')
+			->columns('id')
 			->setGlueOr()
-			->columns('client', $this->getItem()->id)
-			->columns('provider', $this->getItem()->id)
+			->where('client', $this->getItem()->id)
+			->where('provider', $this->getItem()->id)
 			->limit(1)
 			->loadValue();
 	}

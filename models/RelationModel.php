@@ -88,6 +88,47 @@ class RelationModel extends BaseModel {
 			);
 		}
 		
+		//get agreements
+		
+		$rows = $this->db->getQueryBuilderSelect('relations', 'r')
+			->columns('client')
+			->columns('provider')
+			->innerJoin('agreement_relations', 'ar', 'ar.id_relation', 'r.id')
+			->setGlueOr()
+			->where('r.client', $id)
+			->where('r.provider', $id)
+			->loadObjectList();
+		
+		$ids = array();
+		foreach ($rows as $row) {
+			if ($row->client != $id && !in_array($row->client, $ids)) {
+				$ids[] = $row->client;
+			}
+			if ($row->provider != $id && !in_array($row->provider, $ids)) {
+				$ids[] = $row->provider;
+			}
+		}
+		
+		$companies = $this->companyModel->getByIDs($ids);
+		foreach ($companies as $company) {
+			$item = $company->getItem();
+			$data[] = array(
+				'id' => $item->id,
+				'name' => $item->name,
+				'relation' => HLang::get(Lang::generic_agreement)
+			);
+		}
+		
+		$companies = $this->companyModel->getByIDs($ids);
+		foreach ($companies as $company) {
+			$item = $company->getItem();
+			$data[] = array(
+				'id' => $item->id,
+				'name' => $item->name,
+				'relation' => HLang::get(Lang::generic_client)
+			);
+		}
+		
 		return $data;
 	}
 }

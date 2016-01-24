@@ -5,7 +5,7 @@ define(function(require, exports, module) {
 		$ = require('jquery'),
 		View = require('companies/view'),
 		lang = require('lang'),
-		Event = require('Event');
+		Event = require('event');
 	
 	var Model = function() {
 		this.view = new View();

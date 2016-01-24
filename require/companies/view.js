@@ -3,7 +3,7 @@ define(function(require, exports, module) {
 	
 	var
 		$ = require('jquery'),
-		Event = require('Event'),
+		Event = require('event'),
 		alertify = require('alertify'),
 		lang = require('lang'),
 		_ = require('underscore'),

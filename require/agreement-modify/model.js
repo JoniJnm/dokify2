@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 	var
 		$ = require('jquery'),
 		View = require('agreement-modify/view'),
-		Event = require('Event');
+		Event = require('event');
 	
 	var Model = function(companies, relations, agreementCreate) {
 		this.view = new View();
