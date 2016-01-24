@@ -49,10 +49,6 @@ class CompanyController extends \JNMFW\ControllerBase {
 		else {
 			$this->server->sendNotFound();
 		}
-		
-		$this->server->sendData(array(
-			'id' => $item->id
-		));
 	}
 	
 	public function destroy() {
