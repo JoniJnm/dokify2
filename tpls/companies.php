@@ -34,8 +34,8 @@ use dokify2\langs\Lang;
 			</div>
 		</form>
 	</div>
+	<hr>
 	<div class="row">
-		<hr>
 		<div class="col-md-2"></div>
 		<div class="col-md-8 relations"></div>
 		<div class="col-md-2"></div>

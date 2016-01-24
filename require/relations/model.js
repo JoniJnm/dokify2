@@ -3,33 +3,15 @@ define(function(require, exports, module) {
 	
 	var
 		$ = require('jquery'),
-		View = require('relations/view');
+		View = require('relations/view'),
+		Event = require('event');
 	
 	var Model = function(companies) {
 		this.view = new View();
 		this.companies = companies;
 		
-		var self = this;
-		
-		this.companies.onCreate.attach(function(id, name) {
-			self.view.addCompany(id, name);
-			self.fetchAll(true);
-		});
-		this.companies.onDestroy.attach(function(id) {
-			self.view.removeCompany(id);
-			self.fetchAll(true);
-		});
-		this.companies.onModify.attach(function(id, name) {
-			self.view.modifyCompany(id, name);
-			self.fetchAll(true);
-		});
-		this.companies.onRefresh.attach(function(list) {
-			self.view.clearCompanies();
-			for (var i=0; i<list.length; i++) {
-				var company = list[i];
-				self.view.addCompany(company.id, company.name);
-			}
-		});
+		this.companies.observe(this.view.getClientSelect());
+		this.companies.observe(this.view.getProviderSelect());
 		
 		this.view.onAdd.attach(this.onAdd, this);
 		this.view.onDelete.attach(this.destroy, this);
@@ -65,6 +47,9 @@ define(function(require, exports, module) {
 			$.get('rest/relations/get', function(list) {
 				self.view.refresh(list, keepSelected);
 			});
+		},
+		observe: function(select) {
+			this.view.observe(select);
 		}
 	};
 	

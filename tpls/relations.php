@@ -46,7 +46,7 @@ use dokify2\langs\Lang;
 		</div>
 		
 		<div class="col-md-2">
-			<button type="submit" class="btn btn-danger"><?= HLang::get(Lang::generic_add) ?></button>
+			<button type="submit" class="btn btn-success"><?= HLang::get(Lang::generic_add) ?></button>
 		</div>
 	</form>
 </div>

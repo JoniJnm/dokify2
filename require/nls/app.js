@@ -15,7 +15,11 @@ define({
             "provider": "Proveedor",
             "modify": "Modificar",
             "list": "Listado",
-            "relation": "Relaci\u00f3n"
+            "relation": "Relaci\u00f3n",
+            "agreement": "Acuerdo",
+            "agreements": "Acuerdos",
+            "name": "Nombre",
+            "create_agreement": "Crear acuerdo"
         },
         "alert": {
             "diferent_companies": "Las compa\u00f1\u00edas deben ser diferentes",

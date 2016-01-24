@@ -62,6 +62,9 @@ define(function(require, exports, module) {
 		refresh: function(list, keepSelected) {
 			this.relation.refresh(list, keepSelected);
 		},
+		observe: function(select) {
+			this.relation.observe(select);
+		},
 		clear: function() {
 			this.relation.clear();
 		},
@@ -69,22 +72,6 @@ define(function(require, exports, module) {
 			return this.relation.getSelected();
 		},
 		
-		addCompany: function(id, name, selected) {
-			this.client.add(id, name, selected);
-			this.provider.add(id, name, selected);
-		},
-		removeCompany: function(id) {
-			this.client.remove(id);
-			this.provider.remove(id);
-		},
-		modifyCompany: function(id, name) {
-			this.client.modify(id, name);
-			this.provider.modify(id, name);
-		},
-		clearCompanies: function() {
-			this.client.clear();
-			this.provider.clear();
-		},
 		unselectCompanies: function() {
 			this.client.unselect();
 			this.provider.unselect();
@@ -94,6 +81,13 @@ define(function(require, exports, module) {
 		},
 		getSelectedProvider: function() {
 			return this.provider.getSelected();
+		},
+		
+		getClientSelect: function() {
+			return this.client;
+		},
+		getProviderSelect: function() {
+			return this.provider;
 		}
 	};
 	

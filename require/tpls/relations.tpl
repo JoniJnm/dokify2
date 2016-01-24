@@ -16,12 +16,12 @@
 		</tfoot>
 	{/if}
 	<tbody>
-		<tr>
 		{foreach rows as row}
-			{foreach columns as colum}
-				<td>{row[_key]}</td>
-			{/foreach}
+			<tr>
+				{foreach columns as colum}
+					<td>{row[_key]}</td>
+				{/foreach}
+			</tr>
 		{/foreach}
-		</tr>
 	</tbody>
 </table>

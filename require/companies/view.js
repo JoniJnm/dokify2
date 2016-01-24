@@ -79,6 +79,9 @@ define(function(require, exports, module) {
 		refreshList: function(list) {
 			this.select.refresh(list);
 		},
+		observe: function(select) {
+			this.select.observe(select);
+		},
 		clearList: function() {
 			this.select.clear();
 		},
