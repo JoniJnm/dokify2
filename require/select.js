@@ -29,6 +29,7 @@ define(function(require, exports, module) {
 			if (selected) {
 				this.setSelected(id);
 			}
+			arguments[2] = false;
 			this.invoke('add', arguments);
 			return this;
 		},

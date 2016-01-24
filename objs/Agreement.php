@@ -63,12 +63,22 @@ class Agreement extends \JNMFW\ObjBase {
 		
 		$ids_relations = $this->db->getQueryBuilderSelect('agreement_relations')
 				->columns('id_relation')
+				->order($this->db->quoteName('order'), 'ASC')
 				->where('id_agreement', $this->getItem()->id)
-				->order($this->db->quoteName('order'))
 				->loadValueArray();
+		
+		$order = array();
+		foreach ($ids_relations as $id) {
+			$order[$id] = count($order);
+		}
+		
 		
 		$relations = $this->relationModel->getByIDs($ids_relations);
 		$companies = array();
+		
+		usort($relations, function($a, $b) use ($order) {
+			return $order[$a->getItem()->id] < $order[$b->getItem()->id] ? -1 : 1;
+		});
 		
 		if ($relations) {
 			//should exist at least one relation!
@@ -83,6 +93,38 @@ class Agreement extends \JNMFW\ObjBase {
 		return $this->companies;
 	}
 	
+	public function isEmpty() {
+		return !count($this->getCompanies());
+	}
+	
+	/**
+	 * @return Company
+	 */
+	private function getFirstClient() {
+		$companies = $this->getCompanies();
+		return $companies ? $companies[0] : null;
+	}
+	
+	/**
+	 * @return Company
+	 */
+	private function getLastProvider() {
+		$companies = $this->getCompanies();
+		return $companies ? $companies[count($companies)-1] : null;
+	}
+	
+	private function getCompaniesIDs() {
+		$companies = $this->getCompanies();
+		return array_map(function($company) {
+			return $company->getItem()->id;
+		}, $companies);
+	}
+	
+	private function clearCache() {
+		$this->companies = array();
+		$this->valid_relatios = array();
+	}
+	
 	/**
 	 * @return Relation[]
 	 */
@@ -93,15 +135,11 @@ class Agreement extends \JNMFW\ObjBase {
 			return $this->valid_relatios;
 		}
 		
-		$companies = $this->getCompanies();
-		
-		$ids_companies = array_map(function($company) {
-			return $company->getItem()->id;
-		}, $companies);
+		$ids_companies = $this->getCompaniesIDs();
 		
 		//should exist at least two companies!
-		$id_company_client = $ids_companies[0]; //first client
-		$id_company_provider = $ids_companies[count($ids_companies)-1]; //last provider
+		$id_company_client = $this->getFirstClient()->getItem()->id;
+		$id_company_provider = $this->getLastProvider()->getItem()->id;
 		
 		$ids_relations = $this->db->getQueryBuilderSelect('relations')
 			->columns('id')
@@ -120,7 +158,31 @@ class Agreement extends \JNMFW\ObjBase {
 		return $this->valid_relatios;
 	}
 	
-	public function addClient($id_relation) {
+	/**
+	 * @param int id_relation
+	 */
+	public function addRelation($id_relation) {
+		$out = true;
+		if ($this->isEmpty()) {
+			$this->addClient($id_relation);
+		}
+		else {
+			$relation = $this->relationModel->getByID($id_relation);
+			if ($relation->getClient()->getItem()->id == $this->getLastProvider()->getItem()->id) {
+				$this->addProvider($id_relation);
+			}
+			elseif ($relation->getProvider()->getItem()->id == $this->getFirstClient()->getItem()->id) {
+				$this->addClient($id_relation);
+			}
+			else {
+				$out = false; //invalid relation!
+			}
+		}
+		$this->clearCache();
+		return $out;
+	}
+	
+	private function addClient($id_relation) {
 		$this->db->getQueryBuilderUpdate('agreement_relations')
 			->set(array(
 				'order' => $this->db->quoteName('order').' + 1'
@@ -137,7 +199,7 @@ class Agreement extends \JNMFW\ObjBase {
 			->execute();
 	}
 	
-	public function addProvider($id_relation) {
+	private function addProvider($id_relation) {
 		$order = $this->db->getQueryBuilderSelect('agreement_relations')
 				->columns('MAX('.$this->db->quoteName('order').')')
 				->where('id_agreement', $this->getItem()->id)

@@ -13,6 +13,9 @@ define(function(require, exports, module) {
 		this.companies.observe(this.view.getClientSelect());
 		this.companies.observe(this.view.getProviderSelect());
 		
+		this.onCreate = new Event();
+		this.onDestroy = new Event();
+		
 		this.view.onAdd.attach(this.onAdd, this);
 		this.view.onDelete.attach(this.destroy, this);
 	};
@@ -32,6 +35,7 @@ define(function(require, exports, module) {
 				id_provider: id_provider
 			}, function(data) {
 				self.view.add(data.id, data.name, true);
+				self.onCreate.trigger(data.id, data.name);
 			});
 		},
 		destroy: function(id) {
@@ -40,6 +44,7 @@ define(function(require, exports, module) {
 				id: id
 			}, function() {
 				self.view.remove(id);
+				self.onCreate.trigger(id);
 			});
 		},
 		fetchAll: function(keepSelected) {

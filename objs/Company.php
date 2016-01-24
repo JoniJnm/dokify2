@@ -11,4 +11,8 @@ class Company extends \JNMFW\ObjBase {
 	public function getItem() {
 		return $this->item;
 	}
+	
+	public function toJSON() {
+		return get_object_vars($this->getItem());
+	}
 }

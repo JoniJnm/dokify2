@@ -37,11 +37,28 @@ class AgreementController extends \JNMFW\ControllerBase {
 		$item->insert();
 		
 		$agreement = new Agreement($item);
-		$agreement->addClient($id_relation);
+		$agreement->addRelation($id_relation);
 		
 		$this->server->sendData(array(
 			'id' => $item->id
 		));
+	}
+	
+	public function addRelation() {
+		$id_agreement = $this->request->getUInt('id_agreement');
+		$id_relation = $this->request->getUInt('id_relation');
+		
+		$agreement = $this->agreementModel->getByID($id_agreement);
+		
+		if (!$agreement) {
+			$this->server->sendNotFound();
+		}
+		
+		if (!$agreement->addRelation($id_relation)) {
+			$this->server->sendServerError('Invalid relation');
+		}
+		
+		$this->server->sendData($agreement->toJSON());
 	}
 	
 	public function destroy() {

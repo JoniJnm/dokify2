@@ -9,6 +9,7 @@ define(function(require, exports, module) {
 	
 	var View = function() {
 		this.$root = $('#agreement_modify');
+		this.$form = this.$root;
 		
 		this.agreements = new Select(this.$('.agreements'));
 		this.$deleteBtn = this.$('.delete');
@@ -19,6 +20,7 @@ define(function(require, exports, module) {
 		
 		this.onChange = new Event();
 		this.onDelete = new Event();
+		this.onAddRelation = new Event();
 		
 		var self = this;
 		
@@ -31,6 +33,14 @@ define(function(require, exports, module) {
 		this.$deleteBtn.click(function() {
 			var id_selected = self.agreements.getSelected();
 			self.onDelete.trigger(id_selected);
+		});
+		
+		this.$form.submit(function(event) {
+			event.preventDefault();
+			
+			var id_agreement = self.agreements.getSelected();
+			var id_relation = self.relations.getSelected();
+			self.onAddRelation.trigger(id_agreement, id_relation);
 		});
 	};
 	

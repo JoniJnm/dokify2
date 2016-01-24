@@ -4,6 +4,7 @@ namespace dokify2\controllers;
 
 use dokify2\tables\CompanyTable;
 use dokify2\models\CompanyModel;
+use dokify2\objs\Company;
 use JNMFW\helpers\HLang;
 use dokify2\langs\Lang;
 
@@ -29,7 +30,9 @@ class CompanyController extends \JNMFW\ControllerBase {
 		$item->name = $name;
 		$item->insert();
 		
-		$this->server->sendData($item->id);
+		$company = new Company($item);
+		
+		$this->server->sendData($company->toJSON());
 	}
 	
 	public function update() {

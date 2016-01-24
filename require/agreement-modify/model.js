@@ -19,6 +19,14 @@ define(function(require, exports, module) {
 		
 		this.view.onChange.attach(this.onChange, this);
 		this.view.onDelete.attach(this.destroy, this);
+		this.view.onAddRelation.attach(this.addRelation, this);
+		
+		this.relations.onCreate.attach(function() {
+			self.reloadModify();
+		});
+		this.relations.onDestroy.attach(function() {
+			self.reloadModify();
+		});
 	};
 	
 	Model.prototype = {
@@ -27,7 +35,16 @@ define(function(require, exports, module) {
 		},
 		reloadModify: function() {
 			var id_selected = this.view.getSelected();
-			this.change(id_selected);
+			this.onChange(id_selected);
+		},
+		addRelation: function(id_agreement, id_relation) {
+			var self = this;
+			return $.post('rest/agreement/addRelation', {
+				id_agreement: id_agreement,
+				id_relation: id_relation
+			}, function(data) {
+				self.view.preapreModify(data.long_name, data.valid_relations);
+			});
 		},
 		onChange: function(id_selected) {
 			var self = this;
@@ -48,6 +65,7 @@ define(function(require, exports, module) {
 				id: id
 			}, function() {
 				self.view.remove(id);
+				self.view.clearModify();
 			});
 		},
 		fetchAll: function() {
