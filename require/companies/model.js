@@ -24,7 +24,7 @@ define(function(require, exports, module) {
 		},
 		add: function(name) {
 			var self = this;
-			return $.post('rest/company/add', {
+			return $.post('rest/company/create', {
 				name: name
 			}).done(function(data) {
 				self.view.add(data.id, name, true);

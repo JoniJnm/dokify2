@@ -20,6 +20,7 @@ abstract class Lang {
 	const generic_agreements = 'generic_agreements';
 	const generic_name = 'generic_name';
 	const generic_create_agreement = 'generic_create_agreement';
+	const generic_add_relation = 'generic_add_relation';
 	const alert_diferent_companies = 'alert_diferent_companies';
 	const alert_relation_exists = 'alert_relation_exists';
 	const alert_company_exists = 'alert_company_exists';

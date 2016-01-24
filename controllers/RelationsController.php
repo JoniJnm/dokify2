@@ -21,9 +21,7 @@ class RelationsController extends \JNMFW\ControllerBase {
 		$relations = RelationModel::getInstance()->getAll();
 		$data = array();
 		foreach ($relations as $relation) {
-			$row = get_object_vars($relation->getItem());
-			$row['name'] = $relation->getName();
-			$data[] = $row;
+			$data[] = $relation->toJSON();
 		}
 		$this->server->sendData($data);
 	}

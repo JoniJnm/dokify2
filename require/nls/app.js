@@ -19,7 +19,8 @@ define({
             "agreement": "Acuerdo",
             "agreements": "Acuerdos",
             "name": "Nombre",
-            "create_agreement": "Crear acuerdo"
+            "create_agreement": "Crear acuerdo",
+            "add_relation": "A\u00f1adir relaci\u00f3n"
         },
         "alert": {
             "diferent_companies": "Las compa\u00f1\u00edas deben ser diferentes",

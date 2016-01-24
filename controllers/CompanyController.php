@@ -18,7 +18,7 @@ class CompanyController extends \JNMFW\ControllerBase {
 		$this->companyModel = CompanyModel::getInstance();
 	}
 	
-	public function add() {
+	public function create() {
 		$name = $this->request->get('name');
 		
 		if ($this->companyModel->exists($name)) {

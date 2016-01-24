@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 		},
 		add: function(id_client, id_provider) {
 			var self = this;
-			return $.post('rest/relation/add', {
+			return $.post('rest/relation/create', {
 				id_client: id_client,
 				id_provider: id_provider
 			}, function(data) {

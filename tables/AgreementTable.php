@@ -2,35 +2,34 @@
 
 namespace dokify2\tables;
 
-class RelationTable extends \JNMFW\TableBase {
+class AgreementTable extends \JNMFW\TableBase {
 	public $id;
-	public $client;
-	public $provider;
+	public $name;
 	
 	public function getPrimaryKey() {
 		return 'id';
 	}
 
 	public function getTableName() {
-		return 'relations';
+		return 'agreements';
 	}
 	
 	/**
-	 * @return RelationTable
+	 * @return AgreementTable
 	 */
 	public static function get($id) {
 		return parent::get($id);
 	}
 	
 	/**
-	 * @return RelationTable[]
+	 * @return AgreementTable[]
 	 */
 	public static function getMulti($ids) {
 		return parent::getMulti($ids);
 	}
 	
 	/**
-	 * @return RelationTable[]
+	 * @return AgreementTable[]
 	 */
 	public static function getAll() {
 		return parent::getAll();

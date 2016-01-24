@@ -3,7 +3,7 @@
 namespace dokify2\langs;
 
 abstract class LangES {
-	const _VERSION = 1453635510.7317;
+	const _VERSION = 1453646893.6519;
 	const app_title = 'Companies';
 	const generic_companies = 'Compañías';
 	const generic_delete = 'Borrar';
@@ -21,6 +21,7 @@ abstract class LangES {
 	const generic_agreements = 'Acuerdos';
 	const generic_name = 'Nombre';
 	const generic_create_agreement = 'Crear acuerdo';
+	const generic_add_relation = 'Añadir relación';
 	const alert_diferent_companies = 'Las compañías deben ser diferentes';
 	const alert_relation_exists = 'La relación ya existe';
 	const alert_company_exists = 'Ya existe una compañía con el mismo nombre';

@@ -19,7 +19,7 @@ class RelationController extends \JNMFW\ControllerBase {
 		$this->relationModel = RelationModel::getInstance();
 	}
 	
-	public function add() {
+	public function create() {
 		$id_client = $this->request->getInt('id_client');
 		$id_provider = $this->request->getInt('id_provider');
 		
@@ -34,10 +34,7 @@ class RelationController extends \JNMFW\ControllerBase {
 		
 		$relation = new Relation($item);
 		
-		$this->server->sendData(array(
-			'id' => $item->id,
-			'name' => $relation->getName()
-		));
+		$this->server->sendData($relation->toJSON());
 	}
 	
 	public function destroy() {

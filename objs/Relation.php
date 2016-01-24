@@ -4,6 +4,7 @@ namespace dokify2\objs;
 
 use dokify2\tables\RelationTable;
 use dokify2\models\CompanyModel;
+use dokify2\objs\Company;
 
 class Relation extends \JNMFW\ObjBase {
 	/**
@@ -23,9 +24,29 @@ class Relation extends \JNMFW\ObjBase {
 		return $this->item;
 	}
 	
+	/**
+	 * @return Company
+	 */
+	public function getClient() {
+		return $this->companyModel->getByID($this->getItem()->client);
+	}
+	
+	public function toJSON() {
+		$data = get_object_vars($this->getItem());
+		$data['name'] = $this->getName();
+		return $data;
+	}
+	
+	/**
+	 * @return Company
+	 */
+	public function getProvider() {
+		return $this->companyModel->getByID($this->getItem()->provider);
+	}
+	
 	public function getName() {
-		$client = $this->companyModel->getByID($this->getItem()->client);
-		$provider = $this->companyModel->getByID($this->getItem()->provider);
+		$client = $this->getClient();
+		$provider = $this->getProvider();
 		
 		return $client->getItem()->name.' > '.$provider->getItem()->name;
 	}

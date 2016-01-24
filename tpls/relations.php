@@ -8,7 +8,7 @@ use dokify2\langs\Lang;
 <div class="row well" id="relations">
 	<h2 class="title"><?= HLang::get(Lang::generic_relations) ?></h2>
 	
-	<form class="form form-horizontal row">
+	<form class="form form-horizontal row" autocomplete="off">
 		<div class="form-group col-md-5">
 			<label class="col-md-2 control-label"><?= HLang::get(Lang::generic_list) ?></label>
 			<div class="col-md-10">
@@ -27,7 +27,7 @@ use dokify2\langs\Lang;
 		</div>
 	</form>
 	
-	<form class="form form-horizontal row">
+	<form class="form form-horizontal row" autocomplete="off">
 		<div class="form-group col-md-5">
 			<label class="col-md-2 control-label"><?= HLang::get(Lang::generic_client) ?></label>
 			<div class="col-md-10">
