@@ -28,11 +28,13 @@ gulp default
 # Herramientas, frameworks y librerías utilizadas
 
 * [JNMFW](https://github.com/JoniJnm/JNMFW) (framework PHP para hacer API Rest-full)
+* npm (gestor de proyectos)
+* bower (gestor de dependecias)
 * jQuery
 * bootstrap
 * [jstemplate](https://github.com/JoniJnm/jstemplate) (plantillas en el lado del cliente)
 * underscore
-* requirejs
+* requirejs (javascript en módulos)
 * less
 * i18n (internacionalización de idiomas)
 * [langs](https://github.com/JoniJnm/langs) (Gestor de idiomas para el i18n)
@@ -41,5 +43,5 @@ gulp default
 
 * Completa separación de cliente y servidor (comunicacón a través de API - JSON)
 * Modelo MVC en cliente y servidor
-* Soporte de múltiples idiomas (sólo hay que añadir más y utilizarlos)
+* Soporte de múltiples idiomas (sólo hay que añadir más y registrarlos)
 * Single Page Application (página web única que trabaja completamente con operaciones AJAX)
