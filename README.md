@@ -45,3 +45,4 @@ gulp default
 * Modelo MVC en cliente y servidor
 * Soporte de múltiples idiomas (sólo hay que añadir más y registrarlos)
 * Single Page Application (página web única que trabaja completamente con operaciones AJAX)
+* Control de errores & integridad de los datos (claves foráneas en BD)
